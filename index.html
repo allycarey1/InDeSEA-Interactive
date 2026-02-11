@@ -1,105 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Adolescent Pregnancy Determinants - Interactive</title>
+  <title>Adolescent Pregnancy Determinants</title>
   <style>
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background-color: #f4f6fa;
+    }
+
+    .container {
+      position: relative;
       text-align: center;
-      padding: 40px;
     }
 
-    h1 {
-      margin-bottom: 40px;
+    img {
+      width: 100%;
+      max-width: 1200px;
     }
 
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-    }
-
-    .box {
-      background-color: #3b6db3;
-      color: white;
-      padding: 20px;
-      width: 250px;
-      border-radius: 10px;
+    .click-area {
+      position: absolute;
       cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .box:hover {
-      transform: scale(1.05);
     }
 
     .popup {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 20px;
+      width: 60%;
+      max-width: 600px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
       display: none;
-      background-color: white;
-      color: black;
-      margin-top: 10px;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .close {
+      text-align: right;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
     .citation {
       font-size: 12px;
       color: gray;
-      margin-top: 8px;
+      margin-top: 10px;
     }
-
   </style>
 </head>
 <body>
 
-<h1>Social Determinants of Adolescent Pregnancy in Cusco</h1>
-<p>Click each factor to view supporting evidence from our research.</p>
+<div class="container">
+  <img src="diagram.png" alt="Research Diagram">
 
-<div class="grid">
+  <!-- Example Click Areas (you will adjust positioning) -->
 
-  <div>
-    <div class="box" onclick="toggle('stat1')">
-      Lack of Contraceptive Access
-    </div>
-    <div id="stat1" class="popup">
-      52% of participants reported difficulty accessing contraception due to transportation and pharmacy shortages.
-      <div class="citation">Cusco Case-Control Study, 2026</div>
-    </div>
-  </div>
+  <div class="click-area" 
+       style="top: 60%; left: 40%; width: 20%; height: 8%;"
+       onclick="openPopup('stat1')"></div>
 
-  <div>
-    <div class="box" onclick="toggle('stat2')">
-      Sex Stigma
-    </div>
-    <div id="stat2" class="popup">
-      Participants frequently described fear of judgment from family and community when seeking reproductive care.
-      <div class="citation">Qualitative Interview Data, 2026</div>
-    </div>
-  </div>
-
-  <div>
-    <div class="box" onclick="toggle('stat3')">
-      Power Dynamics & Partner Authority
-    </div>
-    <div id="stat3" class="popup">
-      Many adolescents reported limited ability to negotiate contraceptive use with older partners.
-      <div class="citation">Interview Themes – Gender & Autonomy</div>
-    </div>
-  </div>
+  <div class="click-area" 
+       style="top: 30%; left: 20%; width: 18%; height: 8%;"
+       onclick="openPopup('stat2')"></div>
 
 </div>
 
+<!-- Popup Box -->
+<div id="popup" class="popup">
+  <div class="close" onclick="closePopup()">X</div>
+  <div id="popup-content"></div>
+</div>
+
 <script>
-function toggle(id) {
-  var element = document.getElementById(id);
-  if (element.style.display === "block") {
-    element.style.display = "none";
-  } else {
-    element.style.display = "block";
-  }
+const content = {
+  stat1: `
+    <strong>Lack of Contraceptive Access</strong><br><br>
+    52% of participants reported difficulty accessing contraception due to transportation barriers and pharmacy shortages.
+    <div class="citation">Cusco Case-Control Study, 2026</div>
+  `,
+  stat2: `
+    <strong>Sex Stigma</strong><br><br>
+    Many adolescents described fear of judgment when seeking reproductive healthcare.
+    <div class="citation">Qualitative Interview Themes, 2026</div>
+  `
+};
+
+function openPopup(id) {
+  document.getElementById("popup-content").innerHTML = content[id];
+  document.getElementById("popup").style.display = "block";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
 }
 </script>
 
